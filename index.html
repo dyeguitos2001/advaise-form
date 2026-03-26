@@ -22,18 +22,29 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     background-color: var(--dark);
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    align-items: stretch;
-    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100%;
   }
 
   .left-panel {
-    width: 42%;
+    width: 50%;
     background: linear-gradient(180deg, #05101f 0%, #071a32 100%);
     padding: 60px 50px;
     display: flex;
@@ -95,14 +106,14 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(0, 207, 255, 0.08);
+    border: 1px solid rgba(0, 207, 255, 0.28);
     border-radius: 20px;
     padding: 6px 14px;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #dce8f6;
+    color: #00cfff;
     margin-bottom: 28px;
     width: fit-content;
     animation: fadeDown 0.7s 0.1s ease both;
@@ -112,9 +123,9 @@
     content: '';
     width: 6px;
     height: 6px;
-    background: #ffffff;
+    background: #00cfff;
     border-radius: 50%;
-    animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
   }
 
   .panel-headline {
@@ -205,6 +216,7 @@
   }
 
   .right-panel {
+    width: 50%;
     flex: 1;
     display: flex;
     align-items: center;
@@ -298,6 +310,7 @@
     transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
     width: 100%;
     -webkit-appearance: none;
+    appearance: none;
   }
 
   input::placeholder, textarea::placeholder {
@@ -320,7 +333,7 @@
 
   select option {
     background: #0c1b31;
-    color: var(--text);
+    color: #ffffff;
   }
 
   textarea {
@@ -351,8 +364,8 @@
   .submit-btn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(135deg, #00cfff 0%, #0099ff 100%);
+    border: 1px solid rgba(0,255,255,0.3);
     border-radius: 12px;
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
@@ -363,6 +376,8 @@
     letter-spacing: 0.3px;
     position: relative;
     overflow: hidden;
+    animation: glowPulse 2.5s ease-in-out infinite;
+    min-height: 54px;
   }
 
   .submit-btn::after {
@@ -375,8 +390,7 @@
   }
 
   .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(8, 34, 68, 0.45);
+    transform: translateY(-2px) scale(1.02);
   }
 
   .submit-btn:hover::after {
@@ -457,18 +471,203 @@
     80%{transform:translateX(4px)}
   }
 
+  @keyframes glowPulse {
+    0% {
+      box-shadow: 0 0 8px rgba(0, 207, 255, 0.3),
+                  0 0 16px rgba(0, 207, 255, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 18px rgba(0, 207, 255, 0.7),
+                  0 0 36px rgba(0, 207, 255, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 8px rgba(0, 207, 255, 0.3),
+                  0 0 16px rgba(0, 207, 255, 0.2);
+    }
+  }
+
   @media (max-width: 900px) {
-    body { flex-direction: column; }
-    .left-panel { width: 100%; padding: 40px 30px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .panel-headline { font-size: 30px; }
-    .services-list { display: none; }
-    .right-panel { padding: 40px 24px; }
-    .field-row { grid-template-columns: 1fr; }
-    .logo-image { max-width: 240px; }
+    .container {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .left-panel,
+    .right-panel {
+      width: 100%;
+    }
+
+    .left-panel {
+      padding: 36px 22px 28px;
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      justify-content: flex-start;
+    }
+
+    .right-panel {
+      padding: 30px 18px 36px;
+    }
+
+    .panel-content {
+      padding: 32px 0 10px;
+    }
+
+    .panel-headline {
+      font-size: 30px;
+      max-width: 100%;
+    }
+
+    .panel-desc {
+      max-width: 100%;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .services-list {
+      margin-top: 28px;
+      gap: 12px;
+    }
+
+    .service-item {
+      font-size: 13px;
+      line-height: 1.4;
+      align-items: flex-start;
+    }
+
+    .logo-image {
+      max-width: 220px;
+    }
+
+    .form-card {
+      max-width: 100%;
+    }
+
+    .form-header {
+      margin-bottom: 28px;
+    }
+
+    .form-title {
+      font-size: 24px;
+    }
+
+    .form-subtitle {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .field-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    input, select, textarea {
+      font-size: 16px;
+      padding: 14px 15px;
+    }
+
+    textarea {
+      min-height: 110px;
+    }
+
+    .submit-btn {
+      font-size: 15px;
+      min-height: 56px;
+    }
+
+    .form-bottom {
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 0 4px;
+    }
+
+    .privacy-note {
+      font-size: 11.5px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .left-panel {
+      padding: 28px 16px 22px;
+    }
+
+    .right-panel {
+      padding: 24px 14px 28px;
+    }
+
+    .panel-tag {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      padding: 6px 12px;
+      margin-bottom: 18px;
+    }
+
+    .panel-headline {
+      font-size: 26px;
+      line-height: 1.2;
+    }
+
+    .panel-desc {
+      font-size: 13.5px;
+      margin-top: 16px;
+    }
+
+    .services-list {
+      margin-top: 22px;
+    }
+
+    .service-dot {
+      width: 26px;
+      height: 26px;
+      font-size: 12px;
+    }
+
+    .service-item {
+      gap: 10px;
+      font-size: 12.5px;
+    }
+
+    .logo-image {
+      max-width: 190px;
+    }
+
+    .form-title {
+      font-size: 22px;
+    }
+
+    .form-subtitle {
+      font-size: 12.5px;
+    }
+
+    .form-divider {
+      margin-top: 12px;
+    }
+
+    label {
+      font-size: 10.5px;
+      letter-spacing: 1.2px;
+    }
+
+    input, select, textarea {
+      border-radius: 9px;
+    }
+
+    .privacy-note {
+      padding: 11px 12px;
+      font-size: 11px;
+    }
+
+    .success-title {
+      font-size: 22px;
+    }
+
+    .success-text {
+      font-size: 13px;
+    }
   }
 </style>
 </head>
 <body>
+<div class="container">
 
 <div class="left-panel">
   <div class="logo-area">
@@ -478,7 +677,7 @@
   <div class="panel-content">
     <div class="panel-tag">Atendimento Especializado</div>
     <h1 class="panel-headline">
-      Contabilidade que <em style="color: var(--accent-light);">transforma</em> seu negócio
+      Contabilidade que <em style="color: #00cfff;">transforma</em> seu negócio
     </h1>
     <p class="panel-desc">
       Nossa equipe está pronta para ajudar sua empresa a crescer com segurança fiscal, organização financeira e planejamento estratégico.
@@ -504,18 +703,6 @@
     </div>
   </div>
 
-  <div class="panel-footer">
-    <div class="stats-row">
-      <div class="stat">
-        <span class="stat-number">100+</span>
-        <span class="stat-label">Clientes</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">100%</span>
-        <span class="stat-label">Satisfação</span>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="right-panel">
@@ -680,5 +867,6 @@
     }, 1400);
   }
 </script>
+</div>
 </body>
 </html>
