@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advaise | Fale com um Especialista</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #0d0d0d;
+  --accent: #1a5fa8;
+  --accent-light: #2274c8;
+  --gold: #c9a84c;
+}
+body {
+  background-color: var(--dark);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  min-height: 100vh;
+}
+.left-panel {
+  width: 42%;
+  background: #080808;
+  padding: 60px;
+}
+.logo {
+  max-width: 220px;
+  margin-bottom: 30px;
+}
+.right-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-card { max-width: 460px; width:100%; }
+input, select, textarea {
+  width:100%;
+  margin-top:10px;
+  padding:13px;
+  background:#1a1a1a;
+  border:1px solid #222;
+  border-radius:8px;
+  color:#fff;
+}
+button {
+  width:100%;
+  margin-top:15px;
+  padding:15px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  border:none;
+  border-radius:10px;
+  color:#fff;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="left-panel">
+
+  <!-- LOGO -->
+  <img src="CONSULTORIA & CONTABILIDADE.png" class="logo" alt="Advaise Logo">
+
+  <h1 style="font-family:Playfair Display;font-size:34px;">
+    Descubra como <span style="color:#c9a84c">pagar menos impostos</span>
+  </h1>
+
+  <p style="margin-top:15px;color:#888;">
+    Análise gratuita para identificar oportunidades fiscais no seu negócio.
+  </p>
+
+  <div style="margin-top:30px;font-size:14px;line-height:1.8;color:#ccc;">
+    ✔ +200 empresas atendidas<br>
+    ✔ Especialistas em redução de impostos<br>
+    ✔ Atendimento rápido no WhatsApp
+  </div>
+
+</div>
+
+<div class="right-panel">
+  <div class="form-card">
+
+    <h2 style="font-family:Playfair Display;">Receba sua análise gratuita</h2>
+    <p style="color:#888;margin-bottom:20px;">Retorno rápido no WhatsApp</p>
+
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="text" id="sobrenome" placeholder="Sobrenome">
+    <input type="email" id="email" placeholder="E-mail">
+    <input type="tel" id="telefone" placeholder="WhatsApp">
+    <input type="text" id="cidade" placeholder="Cidade">
+
+    <select id="tipo_empresa">
+      <option value="">Tipo de empresa</option>
+      <option>MEI</option>
+      <option>Simples Nacional</option>
+      <option>Lucro Presumido</option>
+      <option>Lucro Real</option>
+    </select>
+
+    <select id="faturamento">
+      <option value="">Faturamento mensal</option>
+      <option>Até R$5 mil</option>
+      <option>R$5 mil a R$20 mil</option>
+      <option>R$20 mil a R$50 mil</option>
+      <option>Acima de R$50 mil</option>
+    </select>
+
+    <select id="servico">
+      <option value="">Serviço desejado</option>
+      <option>Abertura de empresa</option>
+      <option>Contabilidade mensal</option>
+      <option>Planejamento tributário</option>
+    </select>
+
+    <textarea id="mensagem" placeholder="Mensagem"></textarea>
+
+    <button onclick="submitForm()">
+      Quero minha análise gratuita
+    </button>
+
+    <p style="margin-top:10px;font-size:12px;color:#777;">
+      Seus dados estão protegidos
+    </p>
+
+  </div>
+</div>
+
+<script>
+function submitForm() {
+  const nome = document.getElementById('nome').value.trim();
+  const sobrenome = document.getElementById('sobrenome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  const cidade = document.getElementById('cidade').value.trim();
+  const tipo = document.getElementById('tipo_empresa').value;
+  const faturamento = document.getElementById('faturamento').value;
+  const servico = document.getElementById('servico').value;
+  const mensagem = document.getElementById('mensagem').value;
+
+  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  if (!nome || !emailValido || !telefone) {
+    alert('Preencha os campos obrigatórios corretamente');
+    return;
+  }
+
+  const texto = `Novo lead - ADVAISE:%0A%0A
+Nome: ${nome} ${sobrenome}%0A
+Email: ${email}%0A
+WhatsApp: ${telefone}%0A
+Cidade: ${cidade}%0A
+Tipo empresa: ${tipo}%0A
+Faturamento: ${faturamento}%0A
+Serviço: ${servico}%0A
+Mensagem: ${mensagem}`;
+
+  const url = `https://api.whatsapp.com/send?phone=5532988775634&text=${texto}`;
+
+  window.open(url, '_blank');
+}
+</script>
+
+</body>
+</html>
