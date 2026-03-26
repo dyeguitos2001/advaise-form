@@ -6,161 +6,687 @@
 <title>Advaise | Fale com um Especialista</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --dark: #0d0d0d;
-  --accent: #1a5fa8;
-  --accent-light: #2274c8;
-  --gold: #c9a84c;
-}
-body {
-  background-color: var(--dark);
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  display: flex;
-  min-height: 100vh;
-}
-.left-panel {
-  width: 42%;
-  background: #080808;
-  padding: 60px;
-}
-.logo {
-  max-width: 220px;
-  margin-bottom: 30px;
-}
-.right-panel {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.form-card { max-width: 460px; width:100%; }
-input, select, textarea {
-  width:100%;
-  margin-top:10px;
-  padding:13px;
-  background:#1a1a1a;
-  border:1px solid #222;
-  border-radius:8px;
-  color:#fff;
-}
-button {
-  width:100%;
-  margin-top:15px;
-  padding:15px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  border:none;
-  border-radius:10px;
-  color:#fff;
-  cursor:pointer;
-}
+  :root {
+    --dark: #061327;
+    --darker: #04101f;
+    --card: #0b1b33;
+    --border: #163052;
+    --accent: #0b2e59;
+    --accent-light: #133f78;
+    --accent-soft: #1b4e8f;
+    --white: #ffffff;
+    --text: #f5f8fc;
+    --muted: #b8c6d8;
+    --input-bg: #0a172b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    overflow-x: hidden;
+  }
+
+  .left-panel {
+    width: 42%;
+    background: linear-gradient(180deg, #05101f 0%, #071a32 100%);
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .left-panel::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: -80px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(19,63,120,0.28) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .left-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -60px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    animation: fadeDown 0.7s ease both;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo-image {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  }
+
+  .panel-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 0 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .panel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #dce8f6;
+    margin-bottom: 28px;
+    width: fit-content;
+    animation: fadeDown 0.7s 0.1s ease both;
+  }
+
+  .panel-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .panel-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    animation: fadeDown 0.7s 0.2s ease both;
+    max-width: 500px;
+  }
+
+  .panel-headline em {
+    font-style: normal;
+    color: #d8e8ff;
+  }
+
+  .panel-desc {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 360px;
+    animation: fadeDown 0.7s 0.3s ease both;
+  }
+
+  .services-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: fadeDown 0.7s 0.4s ease both;
+  }
+
+  .service-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13.5px;
+    color: #d9e4f3;
+  }
+
+  .service-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .panel-footer {
+    animation: fadeDown 0.7s 0.5s ease both;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .right-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 50px;
+    background: linear-gradient(180deg, #08162a 0%, #0a1a31 100%);
+    position: relative;
+  }
+
+  .right-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(19,63,120,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .form-card {
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .form-header {
+    margin-bottom: 36px;
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .form-subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .form-divider {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #ffffff, #84aee0);
+    margin-top: 16px;
+    border-radius: 2px;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  label {
+    font-size: 11.5px;
+    color: #d6e1ef;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  input, select, textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #8da0b8;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: rgba(255,255,255,0.28);
+    box-shadow: 0 0 0 3px rgba(111,162,224,0.14);
+    background: rgba(255,255,255,0.06);
+  }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23d6e1ef' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  select option {
+    background: #0c1b31;
+    color: var(--text);
+  }
+
+  textarea {
+    resize: none;
+    min-height: 90px;
+    line-height: 1.5;
+  }
+
+  .privacy-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #cad6e4;
+    line-height: 1.5;
+  }
+
+  .privacy-note svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #ffffff;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .submit-btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+    transition: left 0.5s;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(8, 34, 68, 0.45);
+  }
+
+  .submit-btn:hover::after {
+    left: 100%;
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .form-bottom {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  .form-bottom a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .success-overlay {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    padding: 40px 20px;
+  }
+
+  .success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #fff;
+  }
+
+  .success-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 280px;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @keyframes shakeX {
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-6px)}
+    40%{transform:translateX(6px)}
+    60%{transform:translateX(-4px)}
+    80%{transform:translateX(4px)}
+  }
+
+  @media (max-width: 900px) {
+    body { flex-direction: column; }
+    .left-panel { width: 100%; padding: 40px 30px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .panel-headline { font-size: 30px; }
+    .services-list { display: none; }
+    .right-panel { padding: 40px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .logo-image { max-width: 240px; }
+  }
 </style>
 </head>
 <body>
 
 <div class="left-panel">
-
-  <!-- LOGO -->
-  <img src="CONSULTORIA & CONTABILIDADE.png" class="logo" alt="Advaise Logo">
-
-  <h1 style="font-family:Playfair Display;font-size:34px;">
-    Descubra como <span style="color:#c9a84c">pagar menos impostos</span>
-  </h1>
-
-  <p style="margin-top:15px;color:#888;">
-    Análise gratuita para identificar oportunidades fiscais no seu negócio.
-  </p>
-
-  <div style="margin-top:30px;font-size:14px;line-height:1.8;color:#ccc;">
-    ✔ +200 empresas atendidas<br>
-    ✔ Especialistas em redução de impostos<br>
-    ✔ Atendimento rápido no WhatsApp
+  <div class="logo-area">
+    <img src="CONSULTORIA & CONTABILIDADE.png" alt="Advaise Consultoria & Contabilidade" class="logo-image">
   </div>
 
+  <div class="panel-content">
+    <div class="panel-tag">Atendimento Especializado</div>
+    <h1 class="panel-headline">
+      Contabilidade que <em>transforma</em> seu negócio
+    </h1>
+    <p class="panel-desc">
+      Nossa equipe está pronta para ajudar sua empresa a crescer com segurança fiscal, organização financeira e planejamento estratégico.
+    </p>
+
+    <div class="services-list">
+      <div class="service-item">
+        <div class="service-dot">📊</div>
+        Contabilidade consultiva para empresas
+      </div>
+      <div class="service-item">
+        <div class="service-dot">📋</div>
+        Planejamento tributário e gestão
+      </div>
+      <div class="service-item">
+        <div class="service-dot">🏢</div>
+        Abertura e regularização de empresas
+      </div>
+      <div class="service-item">
+        <div class="service-dot">💼</div>
+        BPO Financeiro e folha de pagamento
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-footer">
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-number">1.007</span>
+        <span class="stat-label">Seguidores</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">239+</span>
+        <span class="stat-label">Publicações</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Satisfação</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="right-panel">
   <div class="form-card">
 
-    <h2 style="font-family:Playfair Display;">Receba sua análise gratuita</h2>
-    <p style="color:#888;margin-bottom:20px;">Retorno rápido no WhatsApp</p>
+    <div id="form-view">
+      <div class="form-header">
+        <h2 class="form-title">Fale com um especialista</h2>
+        <p class="form-subtitle">Preencha o formulário e entraremos em contato em até 24h</p>
+        <div class="form-divider"></div>
+      </div>
 
-    <input type="text" id="nome" placeholder="Nome">
-    <input type="text" id="sobrenome" placeholder="Sobrenome">
-    <input type="email" id="email" placeholder="E-mail">
-    <input type="tel" id="telefone" placeholder="WhatsApp">
-    <input type="text" id="cidade" placeholder="Cidade">
+      <div class="field-group">
+        <div class="field-row">
+          <div class="field">
+            <label>Nome</label>
+            <input type="text" id="nome" placeholder="Seu nome">
+          </div>
+          <div class="field">
+            <label>Sobrenome</label>
+            <input type="text" id="sobrenome" placeholder="Sobrenome">
+          </div>
+        </div>
 
-    <select id="tipo_empresa">
-      <option value="">Tipo de empresa</option>
-      <option>MEI</option>
-      <option>Simples Nacional</option>
-      <option>Lucro Presumido</option>
-      <option>Lucro Real</option>
-    </select>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com">
+        </div>
 
-    <select id="faturamento">
-      <option value="">Faturamento mensal</option>
-      <option>Até R$5 mil</option>
-      <option>R$5 mil a R$20 mil</option>
-      <option>R$20 mil a R$50 mil</option>
-      <option>Acima de R$50 mil</option>
-    </select>
+        <div class="field-row">
+          <div class="field">
+            <label>WhatsApp</label>
+            <input type="tel" id="telefone" placeholder="(00) 00000-0000" maxlength="16">
+          </div>
+          <div class="field">
+            <label>Cidade / UF</label>
+            <input type="text" id="cidade" placeholder="Ex: Muriaé / MG">
+          </div>
+        </div>
 
-    <select id="servico">
-      <option value="">Serviço desejado</option>
-      <option>Abertura de empresa</option>
-      <option>Contabilidade mensal</option>
-      <option>Planejamento tributário</option>
-    </select>
+        <div class="field">
+          <label>Tipo de empresa</label>
+          <select id="tipo_empresa">
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option>MEI – Microempreendedor Individual</option>
+            <option>Simples Nacional</option>
+            <option>Lucro Presumido</option>
+            <option>Lucro Real</option>
+            <option>Ainda não tenho empresa</option>
+          </select>
+        </div>
 
-    <textarea id="mensagem" placeholder="Mensagem"></textarea>
+        <div class="field">
+          <label>Serviço de interesse</label>
+          <select id="servico">
+            <option value="" disabled selected>O que você precisa?</option>
+            <option>Abertura de empresa</option>
+            <option>Contabilidade mensal</option>
+            <option>Planejamento tributário</option>
+            <option>Regularização fiscal</option>
+            <option>BPO Financeiro</option>
+            <option>Folha de pagamento</option>
+            <option>Outro / Não sei</option>
+          </select>
+        </div>
 
-    <button onclick="submitForm()">
-      Quero minha análise gratuita
-    </button>
+        <div class="field">
+          <label>Mensagem <span style="color:#9fb1c8;font-size:10px;text-transform:none;letter-spacing:0">(opcional)</span></label>
+          <textarea id="mensagem" placeholder="Conte um pouco sobre seu negócio ou dúvida..."></textarea>
+        </div>
 
-    <p style="margin-top:10px;font-size:12px;color:#777;">
-      Seus dados estão protegidos
-    </p>
+        <div class="privacy-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Seus dados estão protegidos e não serão compartilhados com terceiros.
+        </div>
+
+        <button class="submit-btn" onclick="submitForm()">
+          Quero falar com um especialista →
+        </button>
+
+        <p class="form-bottom">
+          Prefere WhatsApp? <a href="https://api.whatsapp.com/send?phone=5532988775634" target="_blank">Clique aqui para chamar agora</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="success-overlay" id="success-view">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Mensagem enviada!</h2>
+      <p class="success-text">Em breve um especialista da Advaise entrará em contato pelo e-mail ou WhatsApp informado.</p>
+      <button class="submit-btn" onclick="resetForm()" style="margin-top:8px;max-width:200px">Novo contato</button>
+    </div>
 
   </div>
 </div>
 
 <script>
-function submitForm() {
-  const nome = document.getElementById('nome').value.trim();
-  const sobrenome = document.getElementById('sobrenome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const telefone = document.getElementById('telefone').value.trim();
-  const cidade = document.getElementById('cidade').value.trim();
-  const tipo = document.getElementById('tipo_empresa').value;
-  const faturamento = document.getElementById('faturamento').value;
-  const servico = document.getElementById('servico').value;
-  const mensagem = document.getElementById('mensagem').value;
+  document.getElementById('telefone').addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '');
+    if (v.length > 11) v = v.slice(0, 11);
+    if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    e.target.value = v;
+  });
 
-  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  function submitForm() {
+    const nome = document.getElementById('nome').value.trim();
+    const sobrenome = document.getElementById('sobrenome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const tipo = document.getElementById('tipo_empresa').value;
+    const servico = document.getElementById('servico').value;
+    const mensagem = document.getElementById('mensagem').value.trim();
 
-  if (!nome || !emailValido || !telefone) {
-    alert('Preencha os campos obrigatórios corretamente');
-    return;
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!nome) { shake('nome'); return; }
+    if (!email || !emailValido) { shake('email'); return; }
+    if (!telefone) { shake('telefone'); return; }
+
+    const texto = `Olá! Vim pelo formulário da Advaise.%0A%0A` +
+      `Nome: ${nome} ${sobrenome}%0A` +
+      `E-mail: ${email}%0A` +
+      `WhatsApp: ${telefone}%0A` +
+      `Cidade / UF: ${cidade}%0A` +
+      `Tipo de empresa: ${tipo}%0A` +
+      `Serviço de interesse: ${servico}%0A` +
+      `Mensagem: ${mensagem || 'Não informado'}`;
+
+    const url = `https://api.whatsapp.com/send?phone=5532988775634&text=${texto}`;
+
+    window.open(url, '_blank');
+
+    document.getElementById('form-view').style.display = 'none';
+    const s = document.getElementById('success-view');
+    s.style.display = 'flex';
+    s.style.animation = 'fadeUp 0.6s ease both';
   }
 
-  const texto = `Novo lead - ADVAISE:%0A%0A
-Nome: ${nome} ${sobrenome}%0A
-Email: ${email}%0A
-WhatsApp: ${telefone}%0A
-Cidade: ${cidade}%0A
-Tipo empresa: ${tipo}%0A
-Faturamento: ${faturamento}%0A
-Serviço: ${servico}%0A
-Mensagem: ${mensagem}`;
+  function resetForm() {
+    document.getElementById('form-view').style.display = 'block';
+    document.getElementById('success-view').style.display = 'none';
+    ['nome','sobrenome','email','telefone','cidade','mensagem'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('tipo_empresa').selectedIndex = 0;
+    document.getElementById('servico').selectedIndex = 0;
+  }
 
-  const url = `https://api.whatsapp.com/send?phone=5532988775634&text=${texto}`;
-
-  window.open(url, '_blank');
-}
+  function shake(id) {
+    const el = document.getElementById(id);
+    el.style.borderColor = '#ff8d8d';
+    el.style.animation = 'none';
+    setTimeout(() => {
+      el.style.animation = 'shakeX 0.4s ease';
+    }, 10);
+    setTimeout(() => {
+      el.style.borderColor = '';
+      el.style.animation = '';
+    }, 1400);
+  }
 </script>
-
 </body>
 </html>
